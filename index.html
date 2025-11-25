@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Défi de la Navigation (Vision)</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #0d1a26;
+            color: #e0f7fa;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: #1a324a;
+            padding: 30px;
+            border-radius: 10px;
+        }
+        h1 { color: #ffeb3b; }
+        /* تصميم مخصص للخريطة لضمان ظهورها بوضوح */
+        #map-container img { 
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #00bcd4;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .challenge-info {
+            font-size: 1.3em;
+            margin: 20px 0;
+            color: #00bcd4;
+            font-weight: bold;
+        }
+        .score { font-size: 1.2em; color: #4caf50; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🧭 Le Défi de la Navigation (Modèle Visuel)</h1>
+
+    <div id="map-container">
+        <img id="world-map" src="https://i.imgur.com/k6lP0l0.png" alt="Carte du Monde Simple">
+    </div>
+
+    <div id="game-output"></div>
+    
+    <div id="controls" style="margin-top: 30px;">
+        <p style="color: #ff9800; font-size: 1.1em;">(Répondez au défi ci-dessous en nommant le passage d'eau)</p>
+    </div>
+
+</div>
+
+<script>
+    const NAV_CHALLENGES = [
+        {
+            id: 1,
+            start: "Port d'Abidjan (Océan Atlantique)",
+            end: "Mer Méditerranée (Port de Marseille)",
+            correct_path: ["Détroit de Gibraltar", "Mer Méditerranée"], 
+            points: 100
+        },
+        {
+            id: 2,
+            start: "Port de New York (Océan Atlantique)",
+            end: "San Francisco (Océan Pacifique)",
+            correct_path: ["Canal de Panamá", "Océan Pacifique"], 
+            points: 150
+        },
+        {
+            id: 3,
+            start: "Le Caire (Canal de Suez)",
+            end: "Golfe Persique (vers Dubai)",
+            correct_path: ["Mer Rouge", "Détroit de Bab el Mandeb", "Océan Indien", "Détroit d'Hormuz"], 
+            points: 200
+        }
+    ];
+
+    let currentChallengeIndex = 0;
+    let score = 0;
+    const outputElement = document.getElementById('game-output');
+    const controlsElement = document.getElementById('controls');
+    
+    function startNewChallenge() {
+        if (currentChallengeIndex < NAV_CHALLENGES.length) {
+            const challenge = NAV_CHALLENGES[currentChallengeIndex];
+            outputElement.innerHTML = `<p class="score">Score Actuel: ${score}</p>`;
+            controlsElement.innerHTML = `
+                <div class="challenge-info">
+                    <h3>⚓ Défi N° ${challenge.id}</h3>
+                    <p><strong>Départ :</strong> <span style="color:#4caf50;">${challenge.start}</span></p>
+                    <p><strong>Arrivée :</strong> <span style="color:#ff9800;">${challenge.end}</span></p>
+                    <p><strong>MISSION :</strong> Nommez le passage d'eau principal pour commencer votre route.</p>
+                </div>
+            `;
+        } else {
+            controlsElement.innerHTML = `<h2 style="color: #ffeb3b;">🎉 Félicitations! Jeu Terminé.</h2><p class="score" style="font-size: 1.5em;">Score final: ${score}</p>`;
+        }
+    }
+
+    window.onload = startNewChallenge;
+</script>
+</body>
+</html>
